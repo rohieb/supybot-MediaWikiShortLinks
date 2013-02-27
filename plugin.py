@@ -66,7 +66,8 @@ class MediaWikiShortLinks(callbacks.PluginRegexp):
       return
     if callbacks.addressed(irc.nick, msg):
       return
-    url = self.registryValue('mediaWikiUrl', channel)
+    # workaround for stupid line-breaking in config file after 80 chars -.-
+    url = self.registryValue('mediaWikiUrl', channel).translate(None, " \t\n\r")
     if url:
       if not url.endswith("/"):
         url += "/"
